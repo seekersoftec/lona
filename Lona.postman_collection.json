@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "df10bdfa-70ef-456a-b7d0-0d83592ad70c",
+		"name": "Lona",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Infura",
+			"item": [
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "@test1234",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@test.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "jsonrpc",
+									"value": "2.0",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": " 1",
+									"type": "text"
+								},
+								{
+									"key": "method",
+									"value": "eth_blockNumber",
+									"type": "text"
+								},
+								{
+									"key": "params",
+									"value": "[]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ropsten.infura.io/v3/3cf55bfd948848ebb8842f163fd3d094",
+							"protocol": "https",
+							"host": [
+								"ropsten",
+								"infura",
+								"io"
+							],
+							"path": [
+								"v3",
+								"3cf55bfd948848ebb8842f163fd3d094"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Registrattion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"firstname\":\"test_firstname\", \n\"lastname\":\"test_lastname\", \n\"email\":\"testemail@mail.com\", \n\"password_1\":\"12345678\", \n\"password_2\":\"12345678\", \n\"nin_number\":\"08308048022\", \n\"bvn_number\":\"89839829973\", \n\"user_bank_name\":\"zenith\", \n\"bank_account_number\":\"2212250504\", \n\"eth_address\":\"0x25364cfa0778dfcb5c735538626365319460e4c4\", \n\"business_info\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/auth/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"email\":\"testemail@mail.com\", \n\"password\":\"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/auth/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"testemail@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/auth/forgot_password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"testemail@mail.com\",\n    \"reset_code\":\"\",\n    \"new_password\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/auth/forgot_password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh tokens",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/auth/refresh",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"refresh_token\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/auth/logout",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/v1/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NzU3NCwiZXhwIjoxNjEwNTYxMTc0fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.25SHqeUfD0r0eeUBSuu8ez-aeceRRwnsbKZFigh7lc907EAUTOGdk1x5zZkkC70tYM_xrOkV8D7GQQfDVnZngQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{server}}/v1/data_user",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"data_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NzU3NCwiZXhwIjoxNjEwNTYxMTc0fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.25SHqeUfD0r0eeUBSuu8ez-aeceRRwnsbKZFigh7lc907EAUTOGdk1x5zZkkC70tYM_xrOkV8D7GQQfDVnZngQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{server}}/v1/data_admin",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"data_admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Super Admin profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NzU3NCwiZXhwIjoxNjEwNTYxMTc0fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.25SHqeUfD0r0eeUBSuu8ez-aeceRRwnsbKZFigh7lc907EAUTOGdk1x5zZkkC70tYM_xrOkV8D7GQQfDVnZngQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{server}}/v1/data_super_admin",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"data_super_admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Loan",
+			"item": [
+				{
+					"name": "Request loan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"amount\":\"50000\", \n\"loan_expire_date\":\"46\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/request_loan",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"request_loan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay collateral",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_details\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/request_loan",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"request_loan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Repay loan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxMDU1NTE1OSwiZXhwIjoxNjEwNTU4NzU5fQ.eyJlbWFpbCI6InRlc3RlbWFpbEBtYWlsLmNvbSIsImFkbWluIjowfQ.O39YwDwZg8wY9OP3HiJjPK5tJQNMq5TvmT--MTJjbNQWyg-BMcONJHA5ZLNlYm10aPqUBlD-76TMAMt5KbGCbw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_details\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/v1/request_loan",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"v1",
+								"request_loan"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

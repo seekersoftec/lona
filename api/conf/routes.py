@@ -15,7 +15,10 @@ from api.handlers.UserHandlers import (
     ForgotPassword,
     UsersData,
     DataSuperAdminRequired,
-    RequestLoan)
+    RequestLoan,
+    RepayLoan,
+    PayCollateral,
+    UserVerification)
 
 
 def generate_routes(app):
@@ -46,16 +49,25 @@ def generate_routes(app):
     api.add_resource(ForgotPassword, "/v1/auth/forgot_password")
 
     # Example user handler for user permission.
-    api.add_resource(DataUserRequired, "/data_user")
+    api.add_resource(DataUserRequired, "/v1/data_user")
 
     # Example admin handler for admin permission.
-    api.add_resource(DataAdminRequired, "/data_admin")
+    api.add_resource(DataAdminRequired, "/v1/data_admin")
 
     # Example user handler for user permission.
-    # api.add_resource(DataSuperAdminRequired, "/data_super_admin")
+    api.add_resource(DataSuperAdminRequired, "/v1/data_super_admin")
 
-    # Get users page with admin permissions.
-    api.add_resource(UsersData, "/users")
+    # Get users page with super admin permissions.
+    api.add_resource(UsersData, "/v1/users")
+    
+    # Get users page with super admin permissions.
+    api.add_resource(UserVerification, "/v1/verify_user")
     
     # Request Loan page
-    api.add_resource(RequestLoan, "/request_loan")
+    api.add_resource(RequestLoan, "/v1/request_loan")
+
+    # Repay loan page
+    api.add_resource(RepayLoan, "/v1/repay_loan")
+    
+    # Pay collateral page
+    api.add_resource(PayCollateral, "/v1/pay_collateral")

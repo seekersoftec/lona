@@ -62,16 +62,16 @@ class Register(Resource):
 
         # Check if any field is none.
         if (
-            firstname is None or 
-            lastname is None or 
-            email is None or 
-            password_1 is None or
-            password_2 is None or
-            nin_number is None or 
-            bvn_number is None or 
-            user_bank_name is None or
-            bank_account_number is None or
-            eth_address is None
+            firstname is None or firstname == '' or 
+            lastname is None or lastname == '' or
+            email is None or email == '' or
+            password_1 is None or password_1 == '' or
+            password_2 is None or password_2 == '' or
+            nin_number is None or nin_number == '' or
+            bvn_number is None or bvn_number == '' or
+            user_bank_name is None or user_bank_name == '' or
+            bank_account_number is None or bank_account_number == '' or
+            eth_address is None or eth_address == ''
             ):
             return error.INVALID_INPUT_422
 
@@ -361,29 +361,80 @@ class UsersData(Resource):
 class DataUserRequired(Resource):
     @auth.login_required
     def get(self):
-
-        return "Test user data."
+        # Get user
+        user = User.query.filter_by(email=g.user).first()
+        
+        # print(user)
+        # Create user schema for serializing.
+        user_schema = UserSchema()
+        
+        # Get json data
+        data, errors = user_schema.dump(user)
+        
+        # Return json data from db.
+        return data
 
 
 class DataAdminRequired(Resource):
     @auth.login_required
     @role_required.permission(1)
     def get(self):
-
-        return "Test admin data."
+        # Get user
+        user = User.query.filter_by(email=g.user).first()
+        
+        # Create user schema for serializing.
+        user_schema = UserSchema(many=True)
+        
+        # Get json data
+        data, errors = user_schema.dump(user)
+        
+        # Return json data from db.
+        return data
 
 
 class DataSuperAdminRequired(Resource):
     @auth.login_required
     @role_required.permission(2)
     def get(self):
+        # Get user
+        user = User.query.filter_by(email=g.user).first()
+        
+        # Create user schema for serializing.
+        user_schema = UserSchema()
+        
+        # Get json data
+        data, errors = user_schema.dump(user)
+        
+        # Return json data from db.
+        return data
 
-        return "Test super admin data."
 
+class UserVerification(Resource):
+    @auth.login_required
+    @role_required.permission(2)
+    def post(self):
+        # 
+        user_email = request.json.get("user_email")
+        
+        # Get user
+        user = User.query.filter_by(email=user_email).first()
+        
+        # Check if user is verified.
+        if user.details_verified is not True:
+            user.details_verified = True
+            # Commit session.
+            db.session.commit()
 
+        return {
+            'status':'user verified'
+        }
+        
+        
+    
 class RequestLoan(Resource):
     @auth.login_required
     def post(self):
+        print('Requested loan')
         # Get loan request amount
         amount, loan_expire_date = request.json.get("amount"),request.json.get("loan_expire_date")
 
@@ -405,7 +456,7 @@ class RequestLoan(Resource):
             return error.USER_BLACKLISTED
         
         # Check range of time due
-        if max_time(amount,time_due) is False:
+        if max_time(amount,loan_expire_date) is False:
             return error.TIME_NOT_WITHIN_RANGE
         
         # Check if it's user first time
@@ -429,13 +480,13 @@ class RequestLoan(Resource):
         db.session.commit()
         
         # Send a mail to the user 
-        SendMail([user.email]).requestLoan(amount,collateral_amount,interest_rate,time_due,time_requested=datetime.now())
+        SendMail([user.email]).requestLoan(amount,collateral_amount,interest_rate,time_requested=datetime.now())
         
         return {
             'amount':amount,
             'collateral': collateral_amount,
             'interest rate': interest_rate,
-            'time due':time_due
+            'time due':loan_expire_date
         }
 
 
