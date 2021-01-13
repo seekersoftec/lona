@@ -29,10 +29,6 @@ $ python -m main
 
 #### Register:
 
-* HTTPIE Request:
-```sh
-http POST :5000/v1/auth/register username=example_username password=example_password email=example@example.com
-```
 * Curl Request:
 ```sh
 curl -H "Content-Type: application/json" --data '{"username":"example_name","password":"example_password", "email":"example@example.com"}' http://localhost:5000/v1/auth/register
@@ -102,11 +98,3 @@ http GET :5000/users Authorization:"Bearer ACCESS_TOKEN" usernames==test_usernam
 ```sh
 curl -X GET 'localhost:5000/users?usernames=test_username,admin_username&emails=test_email@example.com,admin_email@example.com&start_date=01.01.1990&end_date=01.01.2050' -H "Content-Type: application/json" -H "Authorization: Bearer ACCESS_TOKEN" 
 ```
-
-License
-----
-
-MIT
-
-
-**Free Software, Hell Yeah!**
