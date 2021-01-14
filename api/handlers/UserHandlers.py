@@ -460,7 +460,7 @@ class RequestLoan(Resource):
             return error.TIME_NOT_WITHIN_RANGE
         
         # Check if it's user first time
-        if len(user.transactions) > 0:
+        if len(user.transaction_hashes) > 0:
             # []
             collateral_amount = int(amount)/num_of_marks #
             interest_rate = 1/num_of_marks # 

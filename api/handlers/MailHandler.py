@@ -26,7 +26,7 @@ class SendMail:
      # 
     def collateralPayment(self,amount,collateral_amount,interest_rate,time_due,time_requested):
          msg = Message('Hello', recipients = ['someone1@gmail.com'])
-         msg.body = "Your Lona loan payment is sent, please goto the platform and pay up your debts"
+         msg.body = "Collateral received. Your Lona loan has been sent"
          mail.send(msg)
          return "Sent"
      

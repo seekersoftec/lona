@@ -38,5 +38,5 @@ class UserSchema(Schema):
     # eth_address = fields.Str()
     # business_info = fields.Str()
     # details_verified = fields.Bool()
-    # transactions = fields.Str()
+    # transaction_hashes = fields.Str()
     # created = fields.Str()
