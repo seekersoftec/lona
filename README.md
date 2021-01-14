@@ -20,11 +20,10 @@ $ python -m main
 - Download postman
 - Import the Lona.postman_collection.json file
 
+*Deploying the smart contract on your local machine: *[]*
 open another terminal
 npm i -g truffle
 ```
-
-
 $ cd lona/api/smart_contract
 $ truffle compile
 $ truffle develop
