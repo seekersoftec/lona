@@ -555,7 +555,7 @@ class RepayLoan(Resource):
         
         # 
         return {
-            'status': 'Loan Repayed',
+            'status': 'Loan Repaid',
             'message': 'Collateral Sent'
         }
 
