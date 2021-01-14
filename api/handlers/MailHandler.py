@@ -23,10 +23,10 @@ class SendMail:
          msg.body = "Your Lona loan payment is due, please goto the platform and pay up your debts"
          mail.send(msg)
          return "Sent"
-     
+     # 
     def collateralPayment(self,amount,collateral_amount,interest_rate,time_due,time_requested):
          msg = Message('Hello', recipients = ['someone1@gmail.com'])
-         msg.body = "Your Lona loan payment is due, please goto the platform and pay up your debts"
+         msg.body = "Your Lona loan payment is sent, please goto the platform and pay up your debts"
          mail.send(msg)
          return "Sent"
      

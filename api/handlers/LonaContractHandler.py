@@ -36,6 +36,7 @@ class LONAContract:
         # waits for the specified transaction (tx_hash) to be confirmed
         # (included in a mined block)
         tx_receipt = web3.eth.waitForTransactionReceipt(add_LOA)
+        # 
         return tx_receipt
     
     # 

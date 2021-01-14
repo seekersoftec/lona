@@ -42,7 +42,7 @@ class User(db.Model):
     bank_account_number = db.Column(db.Integer(), unique=True)  
     
     # User Ethereum Address
-    eth_address = db.Column(db.String(length=128), unique=True)
+    eth_address = db.Column(db.String(length=42), unique=True)
     
     # User business infomation (*optional)
     business_info = db.Column(db.String(), default='')
@@ -54,7 +54,7 @@ class User(db.Model):
     details_verified = db.Column(db.Boolean(), default=False)
     
     # user transactions [0,1] = '0,1'
-    transactions = db.Column(db.String(), default='')
+    transaction_hashes = db.Column(db.String(), default='')
     
     # user borrowed amount
     amount_loaned = db.Column(db.String(), default='0')
