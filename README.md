@@ -16,7 +16,9 @@ $ python -m main
 
 * For requests using curl: *[https://curl.haxx.se/download.html]()*
 
-*For requests using postman: *[httpt//]()*
+*For requests using postman: *[]*
+- Download postman
+- Import the Lona.postman_collection.json file
 
 open another terminal
 npm i -g truffle
