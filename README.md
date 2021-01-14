@@ -1,4 +1,4 @@
-# flask-restful-server
+# lona-restful-server
 
 ### INSTALLATION
 * Python 3 is required. There are ways to send requests to server. 
