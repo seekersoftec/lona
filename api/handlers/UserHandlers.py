@@ -98,8 +98,8 @@ class Register(Resource):
         # Commit session.
         db.session.commit()
 
-        # Return success if registration is completed.
-        return {"status": "registration completed."}
+        # Return success if registration is successful.
+        return {"status": "registration successful."}
 
 
 class Login(Resource):
