@@ -629,48 +629,6 @@ class PayCollateral(Resource):
 
 
 # 
-class RepayLoan(Resource): 
-    @auth.login_required
-    def post(self):
-        # user repays loan
-        try:
-            print('Repaying loan')
-            req_data = request.get_json()['data']
-            email, amount, paid = ( 
-                                    req_data['email'], 
-                                    req_data["amount"],
-                                    req_data["paid"]
-                                )
-            
-        except Exception as why:
-            logging.error(why)
-            print(why)
-            
-        # Get user payment details through the payment gateway
-        # payment_details = request.json.get("payment_details")
-
-        # verify payment details through the payment gateway
-        # verify_payment = verify_payment_details(payment_details)
-        
-        # if details is not verified or authentic or any error
-        if (paid != 'True'):
-            return {'message':'Loan payment details cannot be verified'}
-        
-        # 
-        # Get user
-        user = User.query.filter_by(email=email).first()
-        
-        # 
-        SendMail([user.email]).loanRepayment()
-        # 
-        return {
-            'status': 'Loan Repaid',
-            'message': 'Collateral Sent'
-        }
-
- 
-
-# 
 class RepayLoan(Resource):
     # @auth.login_required
     def post(self):
@@ -730,12 +688,14 @@ class RepayLoan(Resource):
         # Commit session.
         db.session.commit()
         
-        # Send a mail to the user 
-        SendMail([user.email]).collateralPayment(amount,user.interest_rate,paid,LONA_Contract.MarkAmount(user.eth_address), LONA_Contract.LOAAmount(user.eth_address))
-        
+        # 
         data = {
-            'message': 'loan payment successful'
+            'status': 'Loan Repaid',
+            'message': 'Collateral Sent'
         }
+        
+        # Send a mail to the user 
+        SendMail([user.email]).loanRepayment(data)
         
         print(data)
         # 

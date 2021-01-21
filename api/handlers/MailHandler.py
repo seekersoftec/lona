@@ -18,15 +18,16 @@ class SendMail:
          return "Sent"
      
     def forgotPassword(self,reset_code):
-         msg = Message('Lona', recipients = ['someone1@gmail.com'])
+         msg = Message('Lona', recipients = self.recipients)
          msg.body = "Lona Reset code: {}".format(reset_code)
          mail.send(msg)
          return "Sent"
     
     # 
-    def loanRepayment(self):
+    def loanRepayment(self, data):
          msg = Message('Lona', recipients = self.recipients)
-         msg.body = "Your Lona loan payment is due, please goto the platform and pay up your debts"
+     #     msg.body = "Your Lona loan payment is due, please goto the platform and pay up your debts"
+         msg.body = "{}".format(data)
          mail.send(msg)
          return "Sent"
      # 
