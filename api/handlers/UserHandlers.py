@@ -705,7 +705,7 @@ class RepayLoan(Resource):
         }
         
         # Send a mail to the user 
-        SendMail([user.email]).loanRepayment(data)
+        SendMail([user.email]).loanRepayment(data['message'])
         
         print(data)
         # 
