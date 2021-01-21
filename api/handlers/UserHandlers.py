@@ -669,3 +669,74 @@ class RepayLoan(Resource):
         }
 
  
+
+# 
+class RepayLoan(Resource):
+    # @auth.login_required
+    def post(self):
+        try:
+            # user repays loan
+            # Get user
+            # payment_details = request.json.get("payment_details")
+            print('Repaying loan')
+            req_data = request.get_json()['data']
+            email, amount, paid = ( 
+                                    req_data['email'], 
+                                    req_data["amount"],
+                                    req_data["paid"]
+                                )
+            
+        except Exception as why:
+            logging.error(why)
+            print(why)
+
+        # verify payment details through the payment gateway
+        # verify_payment = verify_payment_details(payment_details)
+        
+        # Get user
+        user = User.query.filter_by(email=email).first()
+        
+        # print(user)
+        interest = int(user.interest_rate)
+        # if details is not verified or authentic or any error
+        if (paid != 'True' or amount + interest != int(user.amount_loaned) + interest):
+            return {'message':'payment details cannot be verified'}
+        
+        
+        # LOA token is destroyed
+        _loa = LONA_Contract.destroyLOA(str(user.eth_address))
+        
+        print(user)
+        
+        # send collateral
+        # send_collateral = send_collateral_to_User(user.bvn_number,user.user_bank_name,user.bank_account_number)
+        send_collateral = True
+        
+        # 
+        if send_collateral is False:
+            return {'message':'Collateral not sent to bank account'}
+        
+        # 
+        tx_hash = dict(_loa)['transactionHash'].hex() + ','
+        print(tx_hash)
+        user.transaction_hashes = tx_hash
+        # Loan sent to the users bank account
+        user.amount_loaned = '0'
+        user.interest_rate = '0'
+        user.loan_sent_date =  date.today() #
+        user.loan_expire_date =  date.today() #
+        # save the day the loan was sent to the users bank account
+        
+        # Commit session.
+        db.session.commit()
+        
+        # Send a mail to the user 
+        SendMail([user.email]).collateralPayment(amount,user.interest_rate,paid,LONA_Contract.MarkAmount(user.eth_address), LONA_Contract.LOAAmount(user.eth_address))
+        
+        data = {
+            'message': 'loan payment successful'
+        }
+        
+        print(data)
+        # 
+        return data
