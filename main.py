@@ -78,10 +78,10 @@ def create_app():
         # create_super_admin()
 
         # Create default admin user in database.
-        create_admin_user()
+        # create_admin_user()
 
         # Create default test user in database.
-        create_test_user()
+        # create_test_user()
 
     # # notificaton cron tab
     # @crontab.job(minute="0.1", hour="0")
