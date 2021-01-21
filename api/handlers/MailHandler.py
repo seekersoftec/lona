@@ -11,6 +11,13 @@ class SendMail:
         self.recipients = recipients
     
     # 
+    def registerSucess(self, data):
+         msg = Message('Lona', recipients = self.recipients)
+         msg.body = "{}".format(data)
+         mail.send(msg)
+         return "Sent"
+    
+    #
     def login(self,profile_data):
          msg = Message('Lona', recipients = self.recipients)
          msg.body = "Your just logged in: {}".format(profile_data)

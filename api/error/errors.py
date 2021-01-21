@@ -15,3 +15,8 @@ USER_BLACKLISTED = ({"message": "User blacklisted."}, 404)
 USER_NOT_VERIFIED = ({"message": "User not verified."}, 401)
 PASSWORDS_NOT_MATCH = ({"message": "passwords are not the same"}, 400)
 TIME_NOT_WITHIN_RANGE = ({"message": "time not within range"}, 400)
+
+# 
+PAYMENT_NOT_VERIFIED = ({'message':'payment could not be verified'},401)
+COLLATERAL_NOT_SENT = ({'message':'Collateral not sent to bank account'},401)
+LOAN_NOT_SENT = ({'message':'Loan not sent to bank account'},401)

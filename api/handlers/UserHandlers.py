@@ -101,9 +101,15 @@ class Register(Resource):
 
         # Commit session.
         db.session.commit()
-
+        
+        # 
+        data = {"success": "registration successful"}
+        
+        # 
+        SendMail([email]).registerSucess(data)
+        
         # Return success if registration is successful.
-        return {"success": "registration successful"}
+        return data
 
 
 class Login(Resource):
@@ -587,7 +593,7 @@ class PayCollateral(Resource):
         
         # if details is not verified or authentic or any error
         if (paid != 'True' or amount != user.collateral_amount):
-            return {'message':'Collateral payment details cannot be verified'}
+            return error.PAYMENT_NOT_VERIFIED
         
         
         # LOA|MARK token is created
@@ -603,7 +609,7 @@ class PayCollateral(Resource):
         
         # 
         if send_loan is False:
-            return {'message':'Loan not sent to bank account'}
+            return error.LOAN_NOT_SENT
         
         # 
         tx_hash = dict(_loa)['transactionHash'].hex() + ','
@@ -656,15 +662,20 @@ class RepayLoan(Resource):
         
         # print(user)
         interest = int(user.interest_rate)
-        # if details is not verified or authentic or any error
-        if (paid != 'True' or amount + interest != int(user.amount_loaned) + interest):
-            return {'message':'payment details cannot be verified'}
+        borrowed = int(user.amount_loaned) + interest
+        returned = int(amount)
+        print(interest,borrowed,returned)
         
+        # if details is not verified or authentic or any error
+        if (paid != 'True' or  returned != borrowed):
+            return error.PAYMENT_NOT_VERIFIED
+        
+        print(user)
         
         # LOA token is destroyed
         _loa = LONA_Contract.destroyLOA(str(user.eth_address))
         
-        print(user)
+        # print(user)
         
         # send collateral
         # send_collateral = send_collateral_to_User(user.bvn_number,user.user_bank_name,user.bank_account_number)
@@ -672,12 +683,12 @@ class RepayLoan(Resource):
         
         # 
         if send_collateral is False:
-            return {'message':'Collateral not sent to bank account'}
+            return error.COLLATERAL_NOT_SENT
         
         # 
         tx_hash = dict(_loa)['transactionHash'].hex() + ','
         print(tx_hash)
-        user.transaction_hashes = tx_hash
+        user.transaction_hashes += tx_hash
         # Loan sent to the users bank account
         user.amount_loaned = '0'
         user.interest_rate = '0'
@@ -690,8 +701,7 @@ class RepayLoan(Resource):
         
         # 
         data = {
-            'status': 'Loan Repaid',
-            'message': 'Collateral Sent'
+            'message': 'Loan Repaid: Collateral Sent'
         }
         
         # Send a mail to the user 
