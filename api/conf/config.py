@@ -10,13 +10,16 @@ load_dotenv(os.path.join(basedir, ".env"))
 # Create a database in project and get it's path.
 SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "test.db")
 # SQLALCHEMY_DATABASE_URI = os.getenv("MYSQL_DB_URL")
-PORT = os.getenv("PORT")
-JWT_SECRET = os.getenv("JWT_SECRET")
+# PORT = os.getenv("PORT")
+PORT = 8000
+# JWT_SECRET = os.getenv("JWT_SECRET")
+JWT_SECRET='lonadevsamplesecret'
 
 # Convert to seconds
-JWT_ACCESS_EXPIRATION_MINUTES = int(os.getenv("JWT_ACCESS_EXPIRATION_MINUTES"))*60
-JWT_REFRESH_EXPIRATION_DAYS = int(os.getenv("JWT_REFRESH_EXPIRATION_DAYS"))*24*60*60 
-
+# JWT_ACCESS_EXPIRATION_MINUTES = int(os.getenv("JWT_ACCESS_EXPIRATION_MINUTES"))*60
+JWT_ACCESS_EXPIRATION_MINUTES=60*60
+# JWT_REFRESH_EXPIRATION_DAYS = int(os.getenv("JWT_REFRESH_EXPIRATION_DAYS"))*24*60*60 
+JWT_REFRESH_EXPIRATION_DAYS=30*24*60*60
 # Blockchain 
 # BLOCKCHAIN_WEB_ADDRESS = 'http://127.0.0.1:9545'
 BLOCKCHAIN_WEB_ADDRESS = 'https://ropsten.infura.io/v3/40462918cb0b45aab9abfb422aaa0f3c'
