@@ -75,7 +75,7 @@ def create_app():
         db.create_all()
 
         # Create default super admin user in database.
-        create_super_admin()
+        # create_super_admin()
 
         # Create default admin user in database.
         create_admin_user()
