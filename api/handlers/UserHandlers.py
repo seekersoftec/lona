@@ -96,17 +96,22 @@ class Register(Resource):
                     eth_address=eth_address, business_info=business_info
                     )
 
-        # Add user to session.
-        db.session.add(user)
+        try:
+            # Add user to session.
+            db.session.add(user)
 
-        # Commit session.
-        db.session.commit()
+            # Commit session.
+            db.session.commit()
+        except Exception as dbError:
+            print(dbError)
+            return error.ALREADY_EXIST
+
         
         # 
         data = {"success": "registration successful"}
         
         # 
-        SendMail([email]).registerSucess(data)
+        SendMail([email]).registerSucess(data['success'])
         
         # Return success if registration is successful.
         return data
