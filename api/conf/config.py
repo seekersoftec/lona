@@ -23,7 +23,7 @@ JWT_REFRESH_EXPIRATION_DAYS=30*24*60*60
 # Blockchain 
 # BLOCKCHAIN_WEB_ADDRESS = 'http://127.0.0.1:9545'
 BLOCKCHAIN_WEB_ADDRESS = 'https://ropsten.infura.io/v3/40462918cb0b45aab9abfb422aaa0f3c'
-COMPILED_CONTRACT_ABI = os.path.join(basedir, "smart_contract/build/contracts/lona.json")
+COMPILED_CONTRACT_ABI = os.path.join(basedir, "smart_contract/lona.json")
 # CONTRACT_ADDRESS = '0x5b7778D0ef3Ca98554dA3dDFE1b6708D6D6c403e'
 CONTRACT_ADDRESS = '0x8145bC99355198AE4324E0e0Ac7480Fc7cC7faE8'
 # FROM_ADDRESS = '0x577C24aB6C97F22f1eaEb0510150b8A4Ecf425a1'
