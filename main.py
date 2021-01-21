@@ -4,7 +4,7 @@
 import os
 
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from api.conf.config import (SQLALCHEMY_DATABASE_URI,
                              PORT,COMPILED_CONTRACT_ABI,
@@ -21,18 +21,20 @@ from api.db_initializer.db_initializer import (create_admin_user,
                                                create_test_user)
 
 
+# @cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def create_app():
     # Instance to interact with the Smart contract
     LONA_Contract = LONAContract(COMPILED_CONTRACT_ABI)
     print("\n=> "+LONA_Contract.isReady()+"\n")
     
     # Create a flask app.
-    app = Flask(__name__)
+    app = Flask(__name__) 
 
     #CORS
     # cors = CORS(app)
-    app.config['CORS_HEADERS'] = 'Content-Type'
+    app.config['CORS_HEADERS'] = ['Content-Type','Authorization']
     CORS(app)
+    
      
     # Set debug true for catching the errors.
     app.config['DEBUG'] = True
@@ -97,4 +99,4 @@ if __name__ == '__main__':
 
     # Run app. For production use another web server.
     # Set debug and use_reloader parameters as False.
-    app.run(port=PORT, debug=False, use_reloader=False)
+    app.run(port=PORT, debug=True, use_reloader=True)

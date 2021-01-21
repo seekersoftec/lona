@@ -176,8 +176,11 @@ class Login(Resource):
             "profile": profile_data
         }
         
+        # 
         SendMail([user.email]).login(profile_data)
         
+        # 
+        # data.headers.add('Access-Control-Allow-Origin', '*')
         # Return access token, refresh token and user profile data.
         return data
 
