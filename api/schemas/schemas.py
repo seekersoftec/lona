@@ -21,9 +21,12 @@ class BaseUserSchema(Schema):
 
 
 class UserSchema(Schema):
+<<<<<<< HEAD
     class Meta:
         # Fields to expose
         fields = ("lastname", "firstname")
+=======
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
     """
     User schema returns only firstname, lastname, email, NIN, BVN, Bank Name, Bank Account Number, Ethereum Address, Business Information and creation time. This was used in user handlers.
@@ -31,9 +34,15 @@ class UserSchema(Schema):
 
     # Schema parameters.
 
+<<<<<<< HEAD
     # firstname = fields.Str()
     # lastname = fields.Str()
     # email = fields.Str()
+=======
+    firstname = fields.Str()
+    # lastname = fields.Str()
+    email = fields.Str()
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
     # nin_number = fields.Int()
     # bvn_number = fields.Int()
     # user_bank_name = fields.Str()

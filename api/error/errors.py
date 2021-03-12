@@ -8,6 +8,7 @@ INVALID_INPUT_422 = ({"message": "One or more field(s) are wrong."}, 422)
 ALREADY_EXIST = ({"message": "Already exists."}, 409)
 UNAUTHORIZED = ({"message": "Wrong credentials."}, 401)
 
+<<<<<<< HEAD
 # 
 DOES_NOT_EXIST = ({"message": "Does not exists."}, 409)
 NOT_ADMIN = ({"message": "Admin permission denied."}, 999)
@@ -24,3 +25,12 @@ LOAN_NOT_SENT = ({'message':'Loan not sent to bank account'},401)
 
 # 
 DB_ERROR = ({'message':'One or more details already exists'},400)
+=======
+DOES_NOT_EXIST = ({"message": "Does not exists."}, 409)
+NOT_ADMIN = ({"message": "Admin permission denied."}, 999)
+HEADER_NOT_FOUND = ({"message": "Header does not exists."}, 999)
+USER_BLACKLISTED = ({"message": "User blacklisted."}, 401)
+USER_NOT_VERIFIED = ({"message": "User not verified."}, 401)
+PASSWORDS_NOT_MATCH = ({"message": "passwords are not the same"}, 400)
+TIME_NOT_WITHIN_RANGE = ({"message": "time not within range"}, 400)
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249

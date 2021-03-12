@@ -49,7 +49,11 @@ def generate_routes(app):
     api.add_resource(ForgotPassword, "/v1/auth/forgot_password")
 
     # Example user handler for user permission.
+<<<<<<< HEAD
     api.add_resource(DataUserRequired, "/v1/profile")
+=======
+    api.add_resource(DataUserRequired, "/v1/data_user")
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
     # Example admin handler for admin permission.
     api.add_resource(DataAdminRequired, "/v1/data_admin")

@@ -1,6 +1,10 @@
 import json
 from web3 import Web3, HTTPProvider
+<<<<<<< HEAD
 from api.conf.config import BLOCKCHAIN_WEB_ADDRESS, CONTRACT_ADDRESS, FROM_ADDRESS, FROM_ADDRESS_KEY
+=======
+from api.conf.config import BLOCKCHAIN_WEB_ADDRESS, CONTRACT_ADDRESS
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 # Client instance to interact with the blockchain
 web3 = Web3(HTTPProvider(BLOCKCHAIN_WEB_ADDRESS))
@@ -26,12 +30,17 @@ class LONAContract:
     # 
     def isReady(self):
         return "{} Network Connected: {} ".format(BLOCKCHAIN_WEB_ADDRESS,web3.isConnected())
+<<<<<<< HEAD
         
+=======
+    
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
     # 
     def addLOA(self,eth_address,loa_amount):
         """
             adds specified amount of LOA tokens to the user's current balance
         """
+<<<<<<< HEAD
         # tx_hash = self.contract_reference.functions.addLOA(loa_amount,Web3.toChecksumAddress(eth_address.lower())).transact({'from':FROM_ADDRESS})
         # waits for the specified transaction (tx_hash) to be confirmed
         # (included in a mined block)
@@ -44,6 +53,12 @@ class LONAContract:
         signed_tx = web3.eth.account.signTransaction(add_LOA_tx, private_key=FROM_ADDRESS_KEY)
         tx_hash= web3.eth.sendRawTransaction(signed_tx.rawTransaction)
         tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)
+=======
+        add_LOA = self.contract_reference.functions.addLOA(int(loa_amount),eth_address).transact()
+        # waits for the specified transaction (tx_hash) to be confirmed
+        # (included in a mined block)
+        tx_receipt = web3.eth.waitForTransactionReceipt(add_LOA)
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         # 
         return tx_receipt
     
@@ -52,6 +67,7 @@ class LONAContract:
         """
             adds specified amount of MARK tokens to the user's current balance
         """
+<<<<<<< HEAD
         # tx_hash = self.contract_reference.functions.addMARK(mark_amount,Web3.toChecksumAddress(eth_address.lower())).transact({'from':FROM_ADDRESS})
         # waits for the specified transaction (tx_hash) to be confirmed
         # (included in a mined block)
@@ -65,6 +81,12 @@ class LONAContract:
         tx_hash= web3.eth.sendRawTransaction(signed_tx.rawTransaction)
         tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)
         # 
+=======
+        add_MARK = self.contract_reference.functions.addMARK(int(mark_amount),eth_address).transact()
+        # waits for the specified transaction (tx_hash) to be confirmed
+        # (included in a mined block)
+        tx_receipt = web3.eth.waitForTransactionReceipt(add_MARK)
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         return tx_receipt
         
     
@@ -73,6 +95,7 @@ class LONAContract:
         """
             destroys all of user's LOA tokens
         """
+<<<<<<< HEAD
         # destroy_LOA = self.contract_reference.functions.destroyLOA(Web3.toChecksumAddress(eth_address.lower())).transact({'from':FROM_ADDRESS})
         # waits for the specified transaction (tx_hash) to be confirmed
         # (included in a mined block)
@@ -86,6 +109,12 @@ class LONAContract:
         tx_hash= web3.eth.sendRawTransaction(signed_tx.rawTransaction)
         tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)
         # 
+=======
+        destroy_LOA = self.contract_reference.functions.destroyLOA(eth_address).transact()
+        # waits for the specified transaction (tx_hash) to be confirmed
+        # (included in a mined block)
+        tx_receipt = web3.eth.waitForTransactionReceipt(destroy_LOA)
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         return tx_receipt
         
     # 
@@ -93,6 +122,7 @@ class LONAContract:
         """
             removes specified amount of MARK tokens from the user's current balance
         """
+<<<<<<< HEAD
         # reduce_MARK = self.contract_reference.functions.reduceMARK(mark_amount,Web3.toChecksumAddress(eth_address.lower())).transact({'from':FROM_ADDRESS})
         # waits for the specified transaction (tx_hash) to be confirmed
         # (included in a mined block)
@@ -106,6 +136,12 @@ class LONAContract:
         tx_hash= web3.eth.sendRawTransaction(signed_tx.rawTransaction)
         tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)
         # 
+=======
+        reduce_MARK = self.contract_reference.functions.reduceMARK(mark_amount,eth_address).transact()
+        # waits for the specified transaction (tx_hash) to be confirmed
+        # (included in a mined block)
+        tx_receipt = web3.eth.waitForTransactionReceipt(reduce_MARK)
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         return tx_receipt
     
     # 
@@ -113,7 +149,11 @@ class LONAContract:
         """
             Fetches the user's current LOA balance
         """
+<<<<<<< HEAD
         amount = self.contract_reference.functions.getUserLoa(Web3.toChecksumAddress(eth_address.lower())).call()
+=======
+        amount = self.contract_reference.functions.getUserLoa(eth_address).call()
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         return amount
     
     # 
@@ -121,6 +161,7 @@ class LONAContract:
         """
             Fetches the user's current MARK balance
         """
+<<<<<<< HEAD
         amount = self.contract_reference.functions.getUserMark(Web3.toChecksumAddress(eth_address.lower())).call()
         return amount
         
@@ -129,10 +170,16 @@ class LONAContract:
 
 
 
+=======
+        amount = self.contract_reference.functions.getUserMark(eth_address).call()
+        return amount
+        
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 # 
 # def initializer():
     
     
+<<<<<<< HEAD
     # fetch contract's abi - necessary to call its functions
     # contract = LONAContract('build/contracts/lona.json')
 
@@ -142,6 +189,17 @@ class LONAContract:
     
 #     # eth_account_address = Web3.toChecksumAddress("<Your Account Address>") #Modify
     # eth_account_address = Web3.toChecksumAddress('0x74adfaf57d7a60327a2bfee8424459fac283ff5b')
+=======
+#     # fetch contract's abi - necessary to call its functions
+    # contract = LONAContract('build/contracts/lona.json')
+
+#     # Set the default account (so we don't need to set the "from" for every transaction call)
+#     web3.eth.defaultAccount = web3.eth.accounts[0] #from address
+#     # from_eth_account_address = ''
+    
+#     # eth_account_address = Web3.toChecksumAddress("<Your Account Address>") #Modify
+#     eth_account_address = Web3.toChecksumAddress('0x74adfaf57d7a60327a2bfee8424459fac283ff5b')
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 #     # 
 
 #     # user

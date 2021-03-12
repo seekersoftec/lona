@@ -4,7 +4,10 @@
 import os
 
 from flask import Flask
+<<<<<<< HEAD
 from flask_cors import CORS, cross_origin
+=======
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 from api.conf.config import (SQLALCHEMY_DATABASE_URI,
                              PORT,COMPILED_CONTRACT_ABI,
@@ -21,13 +24,17 @@ from api.db_initializer.db_initializer import (create_admin_user,
                                                create_test_user)
 
 
+<<<<<<< HEAD
 # @cross_origin(origin='*',headers=['Content-Type','Authorization'])
+=======
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 def create_app():
     # Instance to interact with the Smart contract
     LONA_Contract = LONAContract(COMPILED_CONTRACT_ABI)
     print("\n=> "+LONA_Contract.isReady()+"\n")
     
     # Create a flask app.
+<<<<<<< HEAD
     app = Flask(__name__) 
 
     #CORS
@@ -36,6 +43,10 @@ def create_app():
     CORS(app)
     
      
+=======
+    app = Flask(__name__)
+
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
     # Set debug true for catching the errors.
     app.config['DEBUG'] = True
 
@@ -75,6 +86,7 @@ def create_app():
         db.create_all()
 
         # Create default super admin user in database.
+<<<<<<< HEAD
         # create_super_admin()
 
         # Create default admin user in database.
@@ -82,11 +94,24 @@ def create_app():
 
         # Create default test user in database.
         # create_test_user()
+=======
+        create_super_admin()
+
+        # Create default admin user in database.
+        create_admin_user()
+
+        # Create default test user in database.
+        create_test_user()
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
     # # notificaton cron tab
     # @crontab.job(minute="0.1", hour="0")
     # def my_scheduled_job():
+<<<<<<< HEAD
     # repayLoanAlert()
+=======
+    repayLoanAlert()
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
     
     # Return app.
     return app
@@ -99,4 +124,8 @@ if __name__ == '__main__':
 
     # Run app. For production use another web server.
     # Set debug and use_reloader parameters as False.
+<<<<<<< HEAD
     app.run(port=PORT, debug=True, use_reloader=True)
+=======
+    app.run(port=PORT, debug=True, host='localhost', use_reloader=True)
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249

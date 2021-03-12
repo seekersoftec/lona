@@ -111,7 +111,10 @@ idea/
 # test.db
 */test.db
 *test.db
+<<<<<<< HEAD
 
 # 
 Pipfile
 Pipfile.lock
+=======
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249

@@ -3,9 +3,13 @@
 
 import logging
 import random
+<<<<<<< HEAD
 import json
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+=======
+from datetime import datetime
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 from flask import g, request
 from flask_restful import Resource
@@ -16,7 +20,11 @@ from api.conf.utils import max_time, send_loan_to_User, verify_payment_details
 from api.database.database import db
 from api.models.models import Blacklist, User
 from api.roles import role_required
+<<<<<<< HEAD
 from api.schemas.schemas import UserSchema,BaseUserSchema
+=======
+from api.schemas.schemas import UserSchema
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 from api.handlers.MailHandler import SendMail
 from api.handlers.LonaContractHandler import LONAContract
 from api.conf.config import COMPILED_CONTRACT_ABI
@@ -24,7 +32,12 @@ from api.conf.config import COMPILED_CONTRACT_ABI
 
 #LONA contract 
 LONA_Contract = LONAContract(COMPILED_CONTRACT_ABI)
+<<<<<<< HEAD
 
+=======
+ 
+ 
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
  
 class Index(Resource):
     @staticmethod
@@ -40,6 +53,7 @@ class Register(Resource):
             # Get
             # Name[firstname, lastname], NIN number, BVN number, business info
             # eth address, bank account details, email, password
+<<<<<<< HEAD
             req_data = request.get_json()['data']
             firstname, lastname, email, password_1, password_2, nin_number, bvn_number, user_bank_name, bank_account_number, eth_address, business_info = (
                 req_data["firstname"].strip(),
@@ -53,14 +67,32 @@ class Register(Resource):
                 req_data["bank_account_number"].strip(),
                 req_data["eth_address"].strip(),
                 req_data["business_info"].strip()
+=======
+            firstname, lastname, email, password_1, password_2, nin_number, bvn_number, user_bank_name, bank_account_number, eth_address, business_info = (
+                request.json.get("firstname").strip(),
+                request.json.get("lastname").strip(),
+                request.json.get("email").strip(),
+                request.json.get("password_1").strip(),
+                request.json.get("password_2").strip(),
+                request.json.get("nin_number").strip(),
+                request.json.get("bvn_number").strip(),
+                request.json.get("user_bank_name").strip(),
+                request.json.get("bank_account_number").strip(),
+                request.json.get("eth_address").strip(),
+                request.json.get("business_info").strip(),
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
             )
         except Exception as why:
 
             # Log input strip or etc. errors.
             logging.info("one or more field(s) is wrong. " + str(why))
+<<<<<<< HEAD
             print(why)
             print(request.data)
             print(request.get_json()['data'])
+=======
+
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
             # Return invalid input error.
             return error.INVALID_INPUT_422
 
@@ -96,6 +128,7 @@ class Register(Resource):
                     eth_address=eth_address, business_info=business_info
                     )
 
+<<<<<<< HEAD
         try:
             # Add user to session.
             db.session.add(user)
@@ -115,11 +148,22 @@ class Register(Resource):
         
         # Return success if registration is successful.
         return data
+=======
+        # Add user to session.
+        db.session.add(user)
+
+        # Commit session.
+        db.session.commit()
+
+        # Return success if registration is successful.
+        return {"status": "registration successful."}
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 
 class Login(Resource):
     @staticmethod
     def post():
+<<<<<<< HEAD
         try:
             # Get user email and password.
             req_data = json.loads(str(request.get_json()['data']))
@@ -128,11 +172,25 @@ class Login(Resource):
                 req_data['email'].strip(),
                 req_data['password'].strip(),
             )
+=======
+
+        try:
+            # Get user email and password.
+            email, password = (
+                request.json.get("email").strip(),
+                request.json.get("password").strip(),
+            )
+
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         except Exception as why:
 
             # Log input strip or etc. errors.
             logging.info("Email or password is wrong. " + str(why))
+<<<<<<< HEAD
             print(why)
+=======
+
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
             # Return invalid input error.
             return error.INVALID_INPUT_422
 
@@ -171,6 +229,7 @@ class Login(Resource):
         # Generate refresh token.
         refresh_token = refresh_jwt.dumps({"email": email})
 
+<<<<<<< HEAD
         # Get json data
         # profile_data, errors = user_schema.dump(user)
         profile_data = {
@@ -194,6 +253,13 @@ class Login(Resource):
         # data.headers.add('Access-Control-Allow-Origin', '*')
         # Return access token, refresh token and user profile data.
         return data
+=======
+        # Return access token and refresh token.
+        return {
+            "access_token": access_token.decode(),
+            "refresh_token": refresh_token.decode(),
+        }
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 
 class Logout(Resource):
@@ -201,6 +267,7 @@ class Logout(Resource):
     @auth.login_required
     def post():
 
+<<<<<<< HEAD
         try:
             # Get refresh token.
             req_data = json.loads(str(request.get_json()['data']))
@@ -212,6 +279,10 @@ class Logout(Resource):
             print(why)
 
         # print(refresh_token)
+=======
+        # Get refresh token.
+        refresh_token = request.json.get("refresh_token")
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
         # Get if the refresh token is in blacklist
         ref = Blacklist.query.filter_by(refresh_token=refresh_token).first()
@@ -401,6 +472,7 @@ class UsersData(Resource):
 
 
 class DataUserRequired(Resource):
+<<<<<<< HEAD
     # @auth.login_required
     def post(self):
         try:
@@ -433,6 +505,22 @@ class DataUserRequired(Resource):
 
         # Return json data from db.
         return {'profile':profile_data}
+=======
+    @auth.login_required
+    def get(self):
+        # Get user
+        user = User.query.filter_by(email=g.user).first()
+        
+        # print(user)
+        # Create user schema for serializing.
+        user_schema = UserSchema()
+        
+        # Get json data
+        data, errors = user_schema.dump(user)
+        
+        # Return json data from db.
+        return data
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 
 class DataAdminRequired(Resource):
@@ -492,6 +580,7 @@ class UserVerification(Resource):
         
     
 class RequestLoan(Resource):
+<<<<<<< HEAD
     # @auth.login_required
     def post(self):
         try:
@@ -521,10 +610,36 @@ class RequestLoan(Resource):
         collateral_amount = 0
         interest_rate = 0
         
+=======
+    @auth.login_required
+    def post(self):
+        print('Requested loan')
+        # Get loan request amount
+        amount, loan_expire_date = request.json.get("amount"),request.json.get("loan_expire_date")
+
+        # Get user
+        user = User.query.filter_by(email=g.user).first()
+        
+        # Check if user is verified.
+        if user.details_verified is not True:
+            # Return user not verified
+            return error.USER_NOT_VERIFIED
+        
+        # 
+        num_of_marks = LONA_Contract.MarkAmount(user.eth_address)
+        collateral_amount = 0
+        interest_rate = 0
+        
+        # Check if user is blacklisted
+        if user.blacklisted is True or num_of_marks <= 0:
+            return error.USER_BLACKLISTED
+        
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         # Check range of time due
         if max_time(amount,loan_expire_date) is False:
             return error.TIME_NOT_WITHIN_RANGE
         
+<<<<<<< HEAD
         
         # Check if it's user first time
         if len(user.transaction_hashes) > 0:
@@ -543,6 +658,19 @@ class RequestLoan(Resource):
         loan_sent_date = date.today()
         loan_expire_date = loan_sent_date + relativedelta(months=+6)
         
+=======
+        # Check if it's user first time
+        if len(user.transaction_hashes) > 0:
+            # []
+            collateral_amount = int(amount)/num_of_marks #
+            interest_rate = 1/num_of_marks # 
+        
+        else:
+            # [standard] [if it's the user first time]
+            collateral_amount = (25/100)*amount # 25% 
+            interest_rate = (2/100)*amount # 2%
+          
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         # Update loan details
         user.amount_loaned = amount
         user.collateral_amount = collateral_amount
@@ -551,6 +679,7 @@ class RequestLoan(Resource):
         
         # Commit session.
         db.session.commit()
+<<<<<<< HEAD
     
         # Send a mail to the user 
         SendMail([user.email]).requestLoan(amount,collateral_amount,interest_rate,loan_expire_date)
@@ -565,11 +694,24 @@ class RequestLoan(Resource):
         print(data)
         
         return data
+=======
+        
+        # Send a mail to the user 
+        SendMail([user.email]).requestLoan(amount,collateral_amount,interest_rate,time_requested=datetime.now())
+        
+        return {
+            'amount':amount,
+            'collateral': collateral_amount,
+            'interest rate': interest_rate,
+            'time due':loan_expire_date
+        }
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
 
 
 
 # 
 class PayCollateral(Resource):
+<<<<<<< HEAD
     # @auth.login_required
     def post(self):
         try:
@@ -622,12 +764,44 @@ class PayCollateral(Resource):
         user.transaction_hashes = tx_hash
         # Loan sent to the users bank account
         user.loan_sent_date =  date.today() #
+=======
+    @auth.login_required
+    def post(self):
+        # user pays collateral
+        # Get user
+        payment_details = request.json.get("payment_details")
+
+        # verify payment details through the payment gateway
+        verify_payment = verify_payment_details(payment_details)
+        
+        # if details is not verified or authentic or any error
+        if (verify_payment is False):
+            return {'message':'Collateral payment details cannot be verified'}
+        
+        # Get user
+        user = User.query.filter_by(email=g.user).first()
+        
+        # LOA|MARK token is created
+        LONA_Contract.addLOA(user.eth_address,user.collateral_amount)
+        LONA_Contract.addMARK(user.eth_address,user.collateral_amount)
+        
+        # send loan
+        send_loan = send_loan_to_User(user.bvn_number,user.user_bank_name,user.bank_account_number)
+        
+        # 
+        if send_loan is False:
+            return {'message':'Loan not sent to bank account'}
+        
+        # Loan sent to the users bank account
+        user.loan_sent_date =  send_loan #
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
         # save the day the loan was sent to the users bank account
         
         # Commit session.
         db.session.commit()
         
         # Send a mail to the user 
+<<<<<<< HEAD
         SendMail([user.email]).collateralPayment(amount,user.interest_rate,paid,LONA_Contract.MarkAmount(user.eth_address), LONA_Contract.LOAAmount(user.eth_address))
         
         data = {
@@ -715,3 +889,37 @@ class RepayLoan(Resource):
         print(data)
         # 
         return data
+=======
+        SendMail([user.email]).collateralPayment(payment_details,time_requested=datetime.now())
+        
+        # 
+        return {
+            'status': 'collateral payment successful',
+            'message': 'Loan Sent'
+        }
+
+
+# 
+class RepayLoan(Resource): 
+    @auth.login_required
+    def post(self):
+        # user repays loan
+        
+        # Get user payment details through the payment gateway
+        payment_details = request.json.get("payment_details")
+
+        # verify payment details through the payment gateway
+        verify_payment = verify_payment_details(payment_details)
+        
+        # if details is not verified or authentic or any error
+        if (verify_payment is False):
+            return {'message':'Loan payment details cannot be verified'}
+        
+        # 
+        return {
+            'status': 'Loan Repaid',
+            'message': 'Collateral Sent'
+        }
+
+ 
+>>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
