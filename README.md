@@ -1,4 +1,4 @@
-# lona-restful-server
+# Lona
 
 ### INSTALLATION
 * Python 3 is required. There are ways to send requests to server. 
