@@ -28,9 +28,7 @@ $ cd lona/api/smart_contract
 $ truffle compile
 $ truffle develop
 truffle(develop)> migrate
-<<<<<<< HEAD
 ```
 /Credit worthy system
 =======
-```
->>>>>>> 44372833b2e689f10e4261cca465dce4e4d8c249
+
